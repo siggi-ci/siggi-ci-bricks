@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5932/test
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+flyway:
+  enabled: true
+
+siggi:
+  services:
+    github:
+      webhook:
+        hookUrl: https://host.test/hooks

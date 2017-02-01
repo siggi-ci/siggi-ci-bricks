@@ -1,0 +1,10 @@
+#
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.siggici.controller.common.SiggiConnectControllerAutoConfiguration,\
+org.siggici.controller.github.common.GithubExecutorAutoConfiguration,\
+org.siggici.controller.github.ghe.GheControllerAutoConfiguration,\
+org.siggici.controller.github.ghcom.GhcomControllerAutoConfiguration,\
+org.siggici.controller.common.SiggiScmProviderControllerAutoConfiguration,\
+org.siggici.web.controller.login.autoconfiguration.LoginControllerAutoConfiguration,\
+org.siggici.security.autoconfiguration.SiggiCiSecurityAutoConfiguration,\
+org.siggici.controller.common.AppControllerAutoConfiguration

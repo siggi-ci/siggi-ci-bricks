@@ -1,0 +1,3 @@
+#
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.siggici.connect.github.ghcom.config.boot.GhcomAutoConfiguration

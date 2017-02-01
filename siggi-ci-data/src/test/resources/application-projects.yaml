@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5732/test
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+flyway:
+  enabled: false

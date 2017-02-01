@@ -1,0 +1,4 @@
+#
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.siggici.data.ids.support.DataAutoConfiguration,\
+org.siggici.data.ids.support.EncryptionKeyServiceAutoConfiguration

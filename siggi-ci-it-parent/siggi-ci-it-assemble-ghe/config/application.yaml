@@ -1,0 +1,42 @@
+siggi:
+  login:
+    controller:
+      provider: ghe
+      scope: user:email,public_repo,write:public_key,write:gpg_key,write:repo_hook,read:org
+
+  signup:
+    admins: admin
+
+  connect:
+    ghe:
+      oauth2:
+        clientId: 123456789abcdefgh #zaas-Localhost in orga 'siggi-ci'
+        clientSecret: '123456789123456789abcdefghabcdefgh' # we use 'ticks' here, because 'clientSecret' sometimes contains 'yaml-sensitive-tokens'
+        authorizeUrl: https://your.ghe.tld/login/oauth/authorize
+        accessTokenUrl: https://your.ghe.tld/login/oauth/access_token
+        apiBaseUrl: https://your.ghe.tld/api/v3/
+  deploykeys:
+    enable-preprocessing: true
+    comment: ghe-it-at-localhost
+
+  services:
+    github:
+      deploykey:
+        title: ghe-it-at-localhost
+      webhook:
+        username: localUser
+        password: secret
+        hookUrl: https://your.hookendpoint.tld/hooks
+
+spring:
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:56432/postgres
+    type: com.zaxxer.hikari.HikariDataSource
+
+  thymeleaf:
+    mode: LEGACYHTML5
+
+flyway:
+  enabled: true
