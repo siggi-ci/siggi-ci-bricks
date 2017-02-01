@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.siggi-ci</groupId>
     <artifactId>siggi-ci-parent</artifactId>
-    <version>3</version>
+    <version>4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Siggi-CI parent</name>
 
@@ -395,7 +395,7 @@
         <url>https://github.com/siggi-ci/siggi-ci-bricks</url>
         <connection>scm:git:git@github.com:siggi-ci/siggi-ci-bricks.git</connection>
         <developerConnection>scm:git:git@github.com:siggi-ci/siggi-ci-bricks.git</developerConnection>
-      <tag>siggi-ci-parent-3</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <issueManagement>
