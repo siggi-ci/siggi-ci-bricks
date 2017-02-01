@@ -65,6 +65,43 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <tagNameFormat>@{artifactId}-@{project.version}</tagNameFormat>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>-Pcustom-release,maven</arguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>prepare</id>
+                        <goals>
+                            <goal>prepare</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>-Pcustom-release,maven</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>perform</id>
+                        <goals>
+                            <goal>perform</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>-Pcustom-release,maven -Dmaven.test.skip</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <scm>
         <url>https://github.com/siggi-ci/siggi-ci-bricks</url>
         <connection>scm:git:git@github.com:siggi-ci/siggi-ci-bricks.git</connection>
