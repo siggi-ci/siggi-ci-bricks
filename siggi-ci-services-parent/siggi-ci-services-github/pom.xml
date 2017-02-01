@@ -28,8 +28,8 @@
         <!-- TESTING -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>keys-spring-data-jpa</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>siggi-ci-keys-spring-data-jpa</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
