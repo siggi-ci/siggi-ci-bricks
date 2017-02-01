@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.siggi-ci</groupId>
 		<artifactId>siggi-ci-boot-starters</artifactId>
-		<version>0.1.0</version>
+		<version>0.1.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>siggi-ci-boot-starter-ghe</artifactId>
 
