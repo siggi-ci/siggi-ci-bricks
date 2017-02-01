@@ -14,7 +14,7 @@
     <description>The Maven-Reactor to build siggi-ci-bricks.</description>
 
     <properties>
-        <gpg.skip>true</gpg.skip>
+        <!-- <gpg.skip>true</gpg.skip> -->
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
         <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
