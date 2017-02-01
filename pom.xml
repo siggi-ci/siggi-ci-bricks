@@ -21,6 +21,7 @@
     </properties>
 
     <modules>
+        <module>siggi-ci-keys-parent</module>
         <!-- <module>siggi-ci-poms/siggi-ci-parent</module> -->
         <module>siggi-ci-connect</module>
         <module>siggi-ci-controller</module>
