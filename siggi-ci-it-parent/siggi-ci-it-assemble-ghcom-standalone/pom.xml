@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.siggi-ci</groupId>
     <artifactId>siggi-ci-it-parent</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
   </parent>
   <artifactId>siggi-ci-it-assemble-ghcom-standalone</artifactId>
 
@@ -132,7 +132,7 @@
                                     <build>
                                         <from>${docker-image-from}</from>
                                         <maintainer>${docker-image-maintainer}</maintainer>
-                                        <tags />
+                                        <tags></tags>
                                         <ports>
                                             <port>8080</port>
                                             <port>9090</port>
