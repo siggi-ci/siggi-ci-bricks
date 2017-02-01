@@ -7,7 +7,6 @@
 	</parent>
 	<artifactId>siggi-ci-boot-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>Siggi-CI boot-parent</name>
 
 	<modules>
 		<module>siggi-ci-boot-autoconfigure</module>

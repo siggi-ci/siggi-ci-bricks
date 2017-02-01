@@ -16,8 +16,8 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>keys-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>siggi-ci-keys-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

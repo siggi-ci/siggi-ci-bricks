@@ -7,7 +7,6 @@
 	</parent>
 	<artifactId>siggi-ci-connect-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>Siggi-CI boot-parent</name>
 
 	<modules>
 		<module>siggi-ci-connect-github-parent</module>
