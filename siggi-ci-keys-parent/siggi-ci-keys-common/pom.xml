@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.siggi-ci</groupId>
         <artifactId>siggi-ci-keys-parent</artifactId>
-        <version>0.1.2-SNAPSHOT</version>
+        <version>0.1.2</version>
     </parent>
     <artifactId>siggi-ci-keys-common</artifactId>
 
