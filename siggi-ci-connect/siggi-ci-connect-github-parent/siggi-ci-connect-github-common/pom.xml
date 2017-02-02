@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.siggi-ci</groupId>
         <artifactId>siggi-ci-connect-github-parent</artifactId>
-        <version>0.1.3</version>
+        <version>0.1.4-SNAPSHOT</version>
     </parent>
     <artifactId>siggi-ci-connect-github-common</artifactId>
     <packaging>jar</packaging>

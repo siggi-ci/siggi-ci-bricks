@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.siggi-ci</groupId>
     <artifactId>siggi-ci-bricks-build-reactor</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4-SNAPSHOT</version>
   </parent>
   <artifactId>siggi-ci-starters</artifactId>
   <packaging>pom</packaging>

@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.siggi-ci</groupId>
 		<artifactId>siggi-ci-controller-parent</artifactId>
-		<version>0.1.3</version>
+		<version>0.1.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>siggi-ci-controller-fake</artifactId>
 
