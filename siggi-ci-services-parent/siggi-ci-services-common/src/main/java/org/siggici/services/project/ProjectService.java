@@ -16,6 +16,7 @@
 package org.siggici.services.project;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.siggici.data.ids.DeployKeyRef;
 import org.siggici.data.ids.EncryptionKey;
@@ -42,11 +43,12 @@ public class ProjectService {
     public Project createProjectIfNotExists(RepositoryInfo repositoryInfo, String accessToken) {
         final RepoId repoId = buildRepoId(repositoryInfo);
         Optional<Project> alreadyExists = projectRepository.findByRepoId(repoId);
-        return alreadyExists.orElseGet( () -> {
+        return alreadyExists.orElseGet(() -> {
             final String deploykeyId = deployKeyStore.create();
             final DeployKeyRef deployKeyRef = DeployKeyRef.builder().deployKeyReference(deploykeyId).build();
             final EncryptionKey encryptionKey = encryptionKeyService.create();
-            Project p = Project.builder().deployKeyRef(deployKeyRef).encryptionKey(encryptionKey).repoId(repoId).accessToken(accessToken).build();
+            Project p = Project.builder().deployKeyRef(deployKeyRef).encryptionKey(encryptionKey).repoId(repoId)
+                    .accessToken(accessToken).build();
             p.getRepositoryDetails().setPrivateRepo(repositoryInfo.isPrivateRepo());
             p.getRepositoryDetails().setWebUrl(repositoryInfo.getHtmlUrl());
             return projectRepository.save(p);
@@ -62,9 +64,22 @@ public class ProjectService {
         });
     }
 
+    public RepositoryInfo isEnabled(RepositoryInfo repositoryInfo) {
+        Optional<Project> result = this.projectRepository.findByRepoId(buildRepoId(repositoryInfo));
+        return result.map(validateActivation(repositoryInfo)).orElse(repositoryInfo);
+    }
+
     protected RepoId buildRepoId(RepositoryInfo repositoryInfo) {
         return RepoId.builder().provider(repositoryInfo.getProvider()).orga(repositoryInfo.getOrga())
                 .repo(repositoryInfo.getName()).build();
     }
 
+    static Function<Project, RepositoryInfo> validateActivation(RepositoryInfo original) {
+        return new Function<Project, RepositoryInfo>() {
+            @Override
+            public RepositoryInfo apply(Project p) {
+                return original.switchEnabled(p.isActive());
+            }
+        };
+    }
 }

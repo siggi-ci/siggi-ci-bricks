@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.siggici.connect.github.Github;
 import org.siggici.connect.github.organization.GitHubOrganization;
@@ -28,17 +29,17 @@ import org.siggici.connect.github.organization.GitHubRepo;
 import org.siggici.services.common.Organization;
 import org.siggici.services.common.RepositoryInfo;
 import org.siggici.services.common.User;
+import org.siggici.services.project.ProjectService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 public class GithubExecutor {
 
     private final GithubRepositoryEnabler githubRepositoryEnabler;
-
-    public GithubExecutor(GithubRepositoryEnabler githubRepositoryEnabler) {
-        this.githubRepositoryEnabler = githubRepositoryEnabler;
-    }
+    private final ProjectService projectService;
 
     public User getUser(Github github) {
         return new User(github.getUserOperations().getProfileId());
@@ -56,6 +57,8 @@ public class GithubExecutor {
     public List<RepositoryInfo> getRepositories(Github github, String username) {
         List<GitHubRepo> repos = github.getRepositoryOperations().getRepositories(username);
         return repos.stream().filter(filterForUser(username)).map(toRepoInfo(username, github.getProviderId()))
+                .map(repo -> projectService.isEnabled(new RepositoryInfo(false, github.getProviderId(), username, repo.getName(), repo.isPrivateRepo(),
+                    repo.getHtmlUrl())))
                 .collect(toList());
     }
 
@@ -63,12 +66,14 @@ public class GithubExecutor {
         // 'type' not used here
         List<GitHubRepo> repos = github.getOrganizationOperations().listOrganizationRepositories(orga, "all");
 
-        List<RepositoryInfo> result = new ArrayList<>();
-        repos.forEach(repo -> {
-            result.add(new RepositoryInfo(false, github.getProviderId(), orga, repo.getName(), repo.isPrivateRepo(),
-                    repo.getHtmlUrl()));
-        });
-        return result;
+        return repos.stream().map(repo -> projectService.isEnabled(new RepositoryInfo(false, github.getProviderId(), orga, repo.getName(), repo.isPrivateRepo(),
+                    repo.getHtmlUrl()))).collect(Collectors.toList());
+//        List<RepositoryInfo> result = new ArrayList<>();
+//        repos.forEach(repo -> {
+//            result.add(new RepositoryInfo(false, github.getProviderId(), orga, repo.getName(), repo.isPrivateRepo(),
+//                    repo.getHtmlUrl()));
+//        });
+//        return result;
     }
 
     public RepositoryInfo enableRepository(Github github, RepositoryInfo repositoryInfo) {

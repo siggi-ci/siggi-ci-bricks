@@ -17,6 +17,7 @@ package org.siggici.controller.github.common;
 
 import org.siggici.services.github.GithubExecutor;
 import org.siggici.services.github.GithubRepositoryEnabler;
+import org.siggici.services.project.ProjectService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,8 @@ import org.springframework.context.annotation.Configuration;
 public class GithubExecutorAutoConfiguration {
 
     @Bean
-    public GithubExecutor githubExecutor(GithubRepositoryEnabler githubRepositoryEnabler) {
-        return new GithubExecutor(githubRepositoryEnabler);
+    public GithubExecutor githubExecutor(GithubRepositoryEnabler githubRepositoryEnabler, ProjectService projectService) {
+        return new GithubExecutor(githubRepositoryEnabler, projectService);
     }
 
 }

@@ -71,4 +71,14 @@
         <developerConnection>scm:git:git@github.com:siggi-ci/siggi-ci-bricks.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.gavinmogan</groupId>
+                <artifactId>codacy-maven-plugin</artifactId>
+                <version>1.0.3</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

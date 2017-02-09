@@ -31,4 +31,7 @@ public class RepositoryInfo {
     private boolean privateRepo;
     private String htmlUrl;
 
+    public RepositoryInfo switchEnabled(boolean enabled) {
+        return new RepositoryInfo(enabled, provider, orga, name, enabled, htmlUrl);
+    }
 }
