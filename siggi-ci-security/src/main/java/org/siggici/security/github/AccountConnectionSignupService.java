@@ -65,6 +65,9 @@ public class AccountConnectionSignupService implements ConnectionSignUp {
             } else if (isTeamMember(login, github)) {
                 registerUser(login, Arrays.asList(ROLE_USER));
                 return login;
+            } else if (configProperties.isAllowAll() ){
+                registerUser(login, Arrays.asList(ROLE_USER));
+                return login;
             }
         } else {
             logger.warn("Expected connection of type 'github', but got another : {}", connection.getKey().getProviderId());
