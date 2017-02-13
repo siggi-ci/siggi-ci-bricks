@@ -1,5 +1,7 @@
 ### Siggi CI Bricks
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8db9618f5a9443c7a6b43f3b6f5ed41f)](https://www.codacy.com/app/jbellmann/siggi-ci-bricks?utm_source=github.com&utm_medium=referral&utm_content=siggi-ci/siggi-ci-bricks&utm_campaign=badger)
+
 is a collection of modules needed to assemble the Siggi CI app.
 
 #### Build
