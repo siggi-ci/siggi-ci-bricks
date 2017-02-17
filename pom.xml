@@ -7,7 +7,7 @@
         <relativePath />
     </parent>
     <artifactId>siggi-ci-bricks-build-reactor</artifactId>
-    <version>0.1.6-SNAPSHOT</version>
+    <version>0.1.6</version>
     <packaging>pom</packaging>
     <name>Siggi-CI Build-Reactor</name>
     <description>The Maven-Reactor to build siggi-ci-bricks.</description>
@@ -17,7 +17,7 @@
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
         <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
-        <arguments></arguments>
+        <arguments />
     </properties>
 
     <modules>
@@ -71,7 +71,7 @@
         <url>https://github.com/siggi-ci/siggi-ci-bricks</url>
         <connection>scm:git:git@github.com:siggi-ci/siggi-ci-bricks.git</connection>
         <developerConnection>scm:git:git@github.com:siggi-ci/siggi-ci-bricks.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>siggi-ci-bricks-build-reactor-0.1.6</tag>
   </scm>
 
     <build>
