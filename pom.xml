@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.siggi-ci</groupId>
         <artifactId>siggi-ci-parent</artifactId>
-        <version>3</version>
+        <version>4</version>
         <relativePath />
     </parent>
     <artifactId>siggi-ci-bricks-build-reactor</artifactId>
@@ -17,6 +17,7 @@
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
         <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
+        <arguments></arguments>
     </properties>
 
     <modules>
