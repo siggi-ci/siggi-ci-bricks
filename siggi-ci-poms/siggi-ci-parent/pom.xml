@@ -340,7 +340,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <useReleaseProfile>false</useReleaseProfile>
-                    <arguments>-Pcustom-release,maven</arguments>
+                    <arguments>-Pcustom-release,maven ${arguments}</arguments>
                 </configuration>
             </plugin>
 
