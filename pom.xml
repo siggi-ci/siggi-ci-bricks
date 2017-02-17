@@ -32,6 +32,7 @@
         <module>siggi-ci-services-parent</module>
         <module>siggi-ci-security</module>
         <module>siggi-ci-it-parent</module>
+        <module>siggi-ci-webhooks-parent</module>
     </modules>
 
     <dependencyManagement>

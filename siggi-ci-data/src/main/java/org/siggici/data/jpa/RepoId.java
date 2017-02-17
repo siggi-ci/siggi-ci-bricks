@@ -15,6 +15,8 @@
  */
 package org.siggici.data.jpa;
 
+import java.util.StringJoiner;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -58,5 +60,9 @@ public class RepoId {
         this.provider = provider;
         this.orga = orga;
         this.repo = repo;
+    }
+
+    public String join(StringJoiner joiner) {
+        return joiner.add(provider).add(orga).add(repo).toString();
     }
 }

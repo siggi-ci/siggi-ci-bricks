@@ -21,10 +21,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = { Counter.class })
-//@EntityScan(basePackageClasses = { Counter.class })
-public class CounterApplication {
+public class NumberGeneratorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CounterApplication.class, args);
+        SpringApplication.run(NumberGeneratorApplication.class, args);
     }
 }

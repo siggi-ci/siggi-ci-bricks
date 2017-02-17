@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.siggici.data.counter;
+package org.siggici.services.common;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import org.springframework.stereotype.Service;
+import org.siggici.data.counter.Counter;
+import org.siggici.data.counter.NumberGeneratorRepository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,16 +30,15 @@ import org.springframework.transaction.annotation.Transactional;
  * @author jbellmann
  *
  */
-@Service
-class CounterServiceImpl implements CounterService {
+class NumberGeneratorImpl implements NumberGenerator {
 
-    private final CounterRepository counterRepository;
+    private final NumberGeneratorRepository counterRepository;
 
-    CounterServiceImpl(CounterRepository counterRepository) {
+    NumberGeneratorImpl(NumberGeneratorRepository counterRepository) {
         this.counterRepository = counterRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation=Isolation.REPEATABLE_READ)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
     public long nextId(String key) {
         Optional<Counter> optionalCounter = counterRepository.findById(key);
         return optionalCounter.orElseGet(new Supplier<Counter>() {

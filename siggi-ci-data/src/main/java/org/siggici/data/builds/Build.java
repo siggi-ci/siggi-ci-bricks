@@ -17,6 +17,7 @@ package org.siggici.data.builds;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,11 +38,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Entity
-//formatter:off
-@Table(uniqueConstraints = { 
-        @UniqueConstraint(columnNames = { "provider", "orga", "repo", "buildnumber" }, name="build_id_unique_constraint")
-})
-//formatter:on
+// formatter:off
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "provider", "orga", "repo",
+        "buildnumber" }, name = "build_id_unique_constraint") })
+// formatter:on
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners({ BuildListener.class })
@@ -69,9 +69,27 @@ public class Build extends AbstractEntity<Long> {
     @Embedded
     private Clock clock = new Clock();
 
+    private Build() {
+        //
+    }
+
+    public Build(RepoId repoId, Long buildNumber) {
+        this.repoId = repoId;
+        this.buildnumber = buildNumber;
+    }
+
+    public Build(RepoId repoId, Long buildNumber, BuildHook buildHook) {
+        this(repoId, buildNumber);
+        this.buildHook = buildHook;
+    }
+
     public BuildSlot addBuildSlot() {
         BuildSlot slot = new BuildSlot(this, this.buildSlots.size() + 1);
         this.buildSlots.add(slot);
         return slot;
+    }
+
+    public String join(StringJoiner joiner) {
+        return joiner.add(repoId.join(joiner)).add(String.valueOf(buildnumber)).toString();
     }
 }
