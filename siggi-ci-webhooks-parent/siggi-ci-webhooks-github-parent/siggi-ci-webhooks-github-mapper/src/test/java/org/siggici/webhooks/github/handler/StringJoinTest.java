@@ -13,16 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.siggici.data.counter;
+package org.siggici.webhooks.github.handler;
 
-/**
- * Serves new ids for builds and others.
- * 
- * @author jbellmann
- *
- */
-public interface CounterService {
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
+import org.siggici.data.jpa.RepoId;
 
-    public long nextId(String key);
+public class StringJoinTest {
+
+    @Test
+    public void joinParts() {
+        RepoId repoId = getRepoId();
+        String result = String.join("/", "build", repoId.getProvider(), repoId.getOrga(), repoId.getRepo());
+        Assertions.assertThat(result).isEqualTo("build/ghcom/orga1/repo2");
+    }
+
+    private RepoId getRepoId() {
+        return RepoId.builder().provider("ghcom").orga("orga1").repo("repo2").build();
+    }
 
 }

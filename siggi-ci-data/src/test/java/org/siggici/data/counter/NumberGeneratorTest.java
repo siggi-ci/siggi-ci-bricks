@@ -15,12 +15,17 @@
  */
 package org.siggici.data.counter;
 
-import java.util.Optional;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
-import org.springframework.data.repository.CrudRepository;
+public class NumberGeneratorTest {
 
-public interface CounterRepository extends CrudRepository<Counter, String> {
-
-    Optional<Counter> findById(String key);
+    @Test
+    public void testEquals() {
+        Counter c1 = Counter.builder().id("ghcom/orga1/repo3").build();
+        Assertions.assertThat(c1.getId()).isEqualTo("ghcom/orga1/repo3");
+        Counter c2 = Counter.builder().id("ghcom/orga1/repo3").build();
+        Assertions.assertThat(c2).isEqualTo(c1);
+    }
 
 }

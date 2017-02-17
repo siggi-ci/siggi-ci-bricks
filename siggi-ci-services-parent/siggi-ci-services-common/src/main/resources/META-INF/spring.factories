@@ -1,3 +1,4 @@
 #
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-org.siggici.services.project.config.ProjectServiceAutoconfiguration
+org.siggici.services.project.config.ProjectServiceAutoconfiguration,\
+org.siggici.services.common.NumberGeneratorConfig
