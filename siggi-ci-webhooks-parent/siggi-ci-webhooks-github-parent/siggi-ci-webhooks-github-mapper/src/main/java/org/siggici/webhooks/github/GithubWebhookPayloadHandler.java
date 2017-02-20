@@ -81,7 +81,7 @@ public class GithubWebhookPayloadHandler implements HookPayloadEventHandler {
             log.info("skip processing, no project found with id : {}", repoId.toString());
         }
 
-        Tuple2<Optional<String>, Optional<?>> buildDefinition = buildDefinitionFetcher.fetch(optionalProject.get(),
+        Tuple2<Optional<String>, Optional<?>> buildDefinition = buildDefinitionFetcher.fetch(pullRequestPayload.getRepository().getUrl(), optionalProject.get().getAccessToken(),
                 pullRequestPayload.getPullRequest().getHead().getSha());
 
         CreateBuildRequest req = CreateBuildRequest.builder().repoId(repoId).hookPayloadEvent(hookPayloadEvent)

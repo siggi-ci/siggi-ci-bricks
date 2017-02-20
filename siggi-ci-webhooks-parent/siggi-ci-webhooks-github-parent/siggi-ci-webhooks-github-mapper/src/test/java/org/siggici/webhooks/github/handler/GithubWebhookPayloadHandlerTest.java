@@ -91,7 +91,7 @@ public class GithubWebhookPayloadHandlerTest {
         when(project.getAccessToken()).thenReturn("1234567890");
         when(project.getRepositoryDetails()).thenReturn(repositoryDetails);
         when(repositoryDetails.getWebUrl()).thenReturn("https://github.com/siggi-ci/hooks");
-        when(buildDefinitionFetcher.fetch(Mockito.any(Project.class), Mockito.anyString())).thenReturn(Tuple.of(Optional.empty(), Optional.empty()));
+        when(buildDefinitionFetcher.fetch(Mockito.any(String.class), Mockito.any(String.class), Mockito.anyString())).thenReturn(Tuple.of(Optional.empty(), Optional.empty()));
 
         GithubWebhookPayloadHandler handler = new GithubWebhookPayloadHandler(projectRepository, buildService,
                 buildDefinitionFetcher);

@@ -17,7 +17,6 @@ package org.siggici.webhooks.services.build;
 
 import java.util.Optional;
 
-import org.siggici.data.projects.Project;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -35,9 +34,9 @@ public class BuildDefinitionFetcher {
 
     private ObjectMapper om = new ObjectMapper();
 
-    protected Optional<String> fetchBuildDefinition(Project project, String sha) {
-        return Optional.ofNullable(new GithubClient(om, project.getAccessToken())
-                .getFileContent(project.getRepositoryDetails().getWebUrl(), sha, ".siggi.yml"));
+    protected Optional<String> fetchBuildDefinition(String repoUrl, String accessToken, String sha) {
+        return Optional.ofNullable(new GithubClient(om, accessToken)
+                .getFileContent(repoUrl, sha, ".siggi.yml"));
     }
 
     protected Optional<?> parseBuildDefinition(String raw) {
@@ -51,8 +50,8 @@ public class BuildDefinitionFetcher {
         }
     }
 
-    public Tuple2<Optional<String>, Optional<?>> fetch(Project project, String sha) {
-        Optional<String> optionalRawContent = fetchBuildDefinition(project, sha);
+    public Tuple2<Optional<String>, Optional<?>> fetch(String repoUrl, String accessToken, String sha) {
+        Optional<String> optionalRawContent = fetchBuildDefinition(repoUrl, accessToken, sha);
         Optional<?> optionalParsed = optionalRawContent.map(raw -> parseBuildDefinition(raw));
         return Tuple.of(optionalRawContent, optionalParsed);
     }
