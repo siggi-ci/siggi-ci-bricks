@@ -1,0 +1,34 @@
+language: java
+
+jdk:
+    - oraclejdk8
+    - oraclejdk7
+    - openjdk6
+
+before:
+    - mvn clean install
+    - mvn jacoco:report
+
+script:
+    - mvn test
+    - another command
+
+box:
+    type: dck
+
+env:
+    matrix:
+        - OPTS=12
+        - OPTS=14
+        - OPTS=16
+
+    global: aValue
+
+notifications:
+    email:
+        recipients:
+            - me@test.de
+            - you@yourcompany.com
+
+        on_success: always # default: always
+        on_failure: always # default: always

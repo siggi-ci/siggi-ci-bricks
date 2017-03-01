@@ -1,0 +1,8 @@
+language: java
+branches:
+  only:
+    - master
+    - feature-234
+  except:
+    - master
+    - feature-234

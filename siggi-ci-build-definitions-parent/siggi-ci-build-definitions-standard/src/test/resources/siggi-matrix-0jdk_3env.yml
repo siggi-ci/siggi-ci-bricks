@@ -1,0 +1,8 @@
+## should be 6 builds
+language: java
+
+env:
+  matrix:
+    - PROFILE=ci
+    - PROFILE=spring4-next
+    - PROFILE=spring41

@@ -1,0 +1,15 @@
+## should be 9 builds
+language: java
+
+jdk:
+    - oraclejdk8
+    - oraclejdk7
+    - openjdk6
+
+env:
+    matrix:
+        - OPTS=12
+        - OPTS=14
+        - OPTS=16
+
+    global: aValue

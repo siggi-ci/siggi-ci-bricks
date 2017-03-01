@@ -1,0 +1,10 @@
+language: java
+
+jdk:
+    - oraclejdk8
+    - oraclejdk7
+    - openjdk6
+
+before:
+    - mvn clean install
+    - mvn jacoco:report

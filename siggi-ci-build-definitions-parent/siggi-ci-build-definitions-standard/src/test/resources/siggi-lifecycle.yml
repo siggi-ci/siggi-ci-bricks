@@ -1,0 +1,29 @@
+language: java
+
+before_install:
+    - before_install_one
+    - before_install_two
+
+install:
+    - install_one
+    - install_two
+
+before_script:
+    - before_script_one
+    - before_script_two
+
+script:
+    - script_one
+    - script_two
+
+after_success:
+    - after_success_one
+    - after_success_two
+
+after_failure:
+    - after_failure_one
+    - after_failure_two
+
+after_script:
+    - after_script_one
+    - after_script_two

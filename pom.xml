@@ -34,6 +34,7 @@
         <module>siggi-ci-security</module>
         <module>siggi-ci-it-parent</module>
         <module>siggi-ci-webhooks-parent</module>
+        <module>siggi-ci-build-definitions-parent</module>
     </modules>
 
     <dependencyManagement>
