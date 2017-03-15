@@ -40,12 +40,14 @@ public class BuildDefinitionFetcher {
     }
 
     protected Optional<?> parseBuildDefinition(String raw) {
+        log.info("parse raw builddefinition ...");
         try {
             JsonNode json = om.readTree(raw);
             String type = json.path("type").asText("simple");
             String version = json.path("version").asText("1.0");
             return Optional.empty();
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return Optional.empty();
         }
     }

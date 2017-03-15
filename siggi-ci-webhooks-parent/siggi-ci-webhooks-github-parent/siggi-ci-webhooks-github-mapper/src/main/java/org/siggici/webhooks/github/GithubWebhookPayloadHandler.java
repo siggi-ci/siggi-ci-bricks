@@ -22,14 +22,18 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
+import org.siggici.data.builds.Build;
 import org.siggici.data.jpa.RepoId;
 import org.siggici.data.projects.Project;
 import org.siggici.data.projects.ProjectRepository;
 import org.siggici.webhooks.HookPayloadEvent;
 import org.siggici.webhooks.HookPayloadEventHandler;
+import org.siggici.webhooks.services.BuildCreatedEvent;
 import org.siggici.webhooks.services.build.BuildDefinitionFetcher;
 import org.siggici.webhooks.services.build.BuildService;
 import org.siggici.webhooks.services.build.CreateBuildRequest;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,13 +53,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class GithubWebhookPayloadHandler implements HookPayloadEventHandler {
+public class GithubWebhookPayloadHandler implements HookPayloadEventHandler, ApplicationEventPublisherAware {
 
     private static final String GITHUB = "github";
     private static final Splitter SPLITTER = Splitter.on("/").omitEmptyStrings().trimResults();
     private static final String PULL_REQUEST = "pull_request";
     private static final List<String> ACTIONS_TO_PROCESS = Lists.newArrayList("opened", "synchronize");
     private final ObjectMapper om = new ObjectMapper();
+
+    private ApplicationEventPublisher applicationEventPublisher;
 
     private final ProjectRepository projectRepository;
     private final BuildService buildService;
@@ -76,20 +82,23 @@ public class GithubWebhookPayloadHandler implements HookPayloadEventHandler {
         }
         RepoId repoId = extractRepoId(pullRequestPayload);
 
-        Optional<Project> optionalProject = projectRepository.findByRepoId((RepoId) repoId);
+        Optional<Project> optionalProject = projectRepository.findByRepoId(repoId);
         if (!optionalProject.isPresent()) {
             log.info("skip processing, no project found with id : {}", repoId.toString());
+            return;
         }
 
-        Tuple2<Optional<String>, Optional<?>> buildDefinition = buildDefinitionFetcher.fetch(pullRequestPayload.getRepository().getUrl(), optionalProject.get().getAccessToken(),
+        Tuple2<Optional<String>, Optional<?>> buildDefinition = buildDefinitionFetcher.fetch(
+                pullRequestPayload.getRepository().getUrl(), optionalProject.get().getAccessToken(),
                 pullRequestPayload.getPullRequest().getHead().getSha());
 
         CreateBuildRequest req = CreateBuildRequest.builder().repoId(repoId).hookPayloadEvent(hookPayloadEvent)
                 .pullRequest(pullRequestPayload).rawBuildDefinition(buildDefinition._1)
                 .parsedBuildDefinition(buildDefinition._2).build();
 
-        buildService.createBuild(req);
+        Build createdBuild = buildService.createBuild(req);
         log.debug("payload-handler done");
+        applicationEventPublisher.publishEvent(BuildCreatedEvent.builder().createdBuild(createdBuild).req(req).build());
     }
 
     private RepoId extractRepoId(PullRequestPayload payload) {
@@ -117,9 +126,14 @@ public class GithubWebhookPayloadHandler implements HookPayloadEventHandler {
         }
         return null;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         log.info("GITHUB_HANDLER WAS INITIALIZED ...");
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 }

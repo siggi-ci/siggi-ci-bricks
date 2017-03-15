@@ -34,6 +34,8 @@ import org.siggici.webhooks.github.GithubWebhookPayloadHandler;
 import org.siggici.webhooks.github.PullRequestPayload;
 import org.siggici.webhooks.services.build.BuildDefinitionFetcher;
 import org.siggici.webhooks.services.build.BuildService;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.ClassPathResource;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -91,10 +93,21 @@ public class GithubWebhookPayloadHandlerTest {
         when(project.getAccessToken()).thenReturn("1234567890");
         when(project.getRepositoryDetails()).thenReturn(repositoryDetails);
         when(repositoryDetails.getWebUrl()).thenReturn("https://github.com/siggi-ci/hooks");
-        when(buildDefinitionFetcher.fetch(Mockito.any(String.class), Mockito.any(String.class), Mockito.anyString())).thenReturn(Tuple.of(Optional.empty(), Optional.empty()));
+        when(buildDefinitionFetcher.fetch(Mockito.any(String.class), Mockito.any(String.class), Mockito.anyString()))
+                .thenReturn(Tuple.of(Optional.empty(), Optional.empty()));
 
         GithubWebhookPayloadHandler handler = new GithubWebhookPayloadHandler(projectRepository, buildService,
                 buildDefinitionFetcher);
+        handler.setApplicationEventPublisher(new ApplicationEventPublisher() {
+
+            @Override
+            public void publishEvent(Object event) {
+            }
+
+            @Override
+            public void publishEvent(ApplicationEvent event) {
+            }
+        });
         handler.handle(buildHookPayloadEvent());
     }
 
